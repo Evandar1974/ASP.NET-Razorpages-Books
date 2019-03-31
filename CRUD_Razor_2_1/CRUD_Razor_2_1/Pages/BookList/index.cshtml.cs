@@ -13,6 +13,9 @@ namespace CRUD_Razor_2_1.Pages.BookList
     {
         private readonly ApplicationDbContext _db;
 
+        [TempData]
+        public string Message { get; set; }
+
         public IEnumerable<Book> Books { get; set; }
 
         public indexModel(ApplicationDbContext db)

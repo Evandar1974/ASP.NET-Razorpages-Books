@@ -11,12 +11,16 @@ namespace CRUD_Razor_2_1.Pages.BookList
     public class CreateModel : PageModel
     {
         private readonly ApplicationDbContext _db;
+        
+        [TempData]
+        public string Message { get; set; }
 
         public CreateModel(ApplicationDbContext db)
         {
             _db = db;
         }
 
+        [BindProperty]
         public Book Book { get; set; }
 
         public void OnGet()
@@ -30,7 +34,10 @@ namespace CRUD_Razor_2_1.Pages.BookList
             {
                 return Page();
             }
-            return Page();
+            _db.Books.Add(Book);
+            await _db.SaveChangesAsync();
+            Message = "Book has been created sucesfully";
+            return RedirectToPage("Index");
         }
     }
 }
